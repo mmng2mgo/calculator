@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Value from '../consts/Value';
 
 export default function useCalculator(){
     
@@ -20,72 +21,106 @@ export default function useCalculator(){
         setErrorMessage("");
         return false;
     };
-    const handleOperatorButtonClick = (newOperator) => {
-        if(operator !== null){
-            if (operator === "+") {
-                setResultValue(left + right);
-            } else if (operator === "-") {
-                setResultValue(left - right);
-            } else if (operator === "×") {
-                setResultValue(left * right);
-            } else if (operator === "÷") {
-                setResultValue(left / right);
-            }
-            setLeft(resultValue);
-            setRight(0);
+
+    const isNumber = (value) => {
+        return value === Value.ZERO || value === Value.ONE || value === Value.TWO || 
+            value === Value.THREE || value === Value.FOUR || value === Value.FIVE || 
+            value === Value.SEVEN || value === Value.EIGHT || value === Value.NINE
+    };
+
+    const isOperator = (value) => {
+        return value === Value.PLUS || value === Value.SUBSTRACT || value === Value.MULTIPLY || value === Value.DIVISION
+    };
+
+    const isEqual = (value) => {
+        return value === Value.EQUAL
+    }
+
+    const isClear = (value) => {
+        return value === Value.CLEAR
+    }
+
+    const calculateWithOperator = (leftHand, rightHand) => {
+        switch(operator){
+            case '+':
+                setResultValue(leftHand + rightHand);
+                break;
+            case '-':
+                setResultValue(leftHand - rightHand);
+                break;
+            case '×':
+                setResultValue(leftHand * rightHand);
+                break;
+            case '÷':
+                setResultValue(leftHand / rightHand);
+                if(rightHand === 0){
+                    console.log("0徐算は出来ません。")
+                }
+                break;
+            default:
+                setResultValue(leftHand);       
         }
-        // setLeft(resultValue);
-        // setRight(0);
-        setOperator(newOperator);
+    }
+
+    const handleOperatorButtonClick = (newOperator) => {
+        if(isNumber(lastInput)){
+            if(operator !== null){
+                calculateWithOperator(left, right);
+                setLeft(resultValue);
+                setRight(0);
+            }
+            setOperator(newOperator);
+            setLastInput(newOperator);
+        }
     };
 
     const handleNumberButtonClick = (value) => {
         //次は記号を入れてね
-        if(operator === null){
-            // const newValue = left * 10 + Number(value);
-            // if (!isResultValueLimitOver(newValue, resultValueLimit)){
-            //     setLeft(newValue);
-            //     setResultValue(newValue);
-            // }
-            setLeft(left * 10 + Number(value));
-            setResultValue(left * 10 + Number(value));
-        }   
+        if(isNumber(lastInput)){
+            if(operator === null){
+                setLeft(left * 10 + Number(value));
+                setResultValue(left * 10 + Number(value));
+            }else{
+                setRight(right * 10 + value);   
+                setResultValue(right * 10 + value);
+            }
+        }
+        else if(isOperator(lastInput)){
+            setRight(value);
+            setResultValue(right);
+        }
         else{
-            setLeft(resultValue);
-            setRight(right*10 + Number(value));
-            setResultValue(right * 10 + Number(value));
+            setLeft(Number(value));
+            setResultValue(Number(value));
         }
         setLastInput(value);
     }
 
-    const handleCancelButtonClick = () => {
-        setResultValue(0);
-        setRight(0);
-        setLeft(0);
-        setOperator(null);
+    const handleClearButtonClick = (value) => {
+        if(isClear(value)){
+            setResultValue(0);
+            setRight(0);
+            setLeft(0);
+            setOperator(null);
+            setLastInput(null);
+        }
     }
 
-    const handleCalculate = () =>{
-        switch(operator){
-            case '+':
-                setResultValue(String(left + right));
-                break;
-            case '-':
-                setResultValue(String(left - right));
-                break;
-            case '×':
-                setResultValue(String(left * right));
-                break;
-            case '÷':
-                setResultValue(String(left / right));
-                break;
-            default:
-                setResultValue(String(left));       
+    const handleEqualButtonClick = (value) =>{
+        if(isNumber(lastInput)){
+            calculateWithOperator(left, right);
+            setLeft(0);
+            setRight(0);
         }
-        setLeft(0);
-        setRight(0);
+        else if(isEqual(lastInput)){
+            calculateWithOperator(resultValue, right);
+        }
+        else if(isOperator(lastInput)){
+            calculateWithOperator(left, left);
+        }
+        setLastInput(value)
         };   
-    return { resultValue, errorMessage, handleCalculate, handleCancelButtonClick, handleOperatorButtonClick, handleNumberButtonClick }
+    return { resultValue, errorMessage, handleEqualButtonClick, handleClearButtonClick, handleOperatorButtonClick, handleNumberButtonClick }
 }
     
         
