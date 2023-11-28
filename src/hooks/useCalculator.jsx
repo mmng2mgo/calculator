@@ -52,7 +52,7 @@ export default function useCalculator(){
                 setResultValue(leftHand * rightHand);
                 break;
             case Value.DIVISION:
-                setResultValue(leftHand / rightHand);
+                setResultValue(Math.floor(leftHand / rightHand));
                 if(rightHand === 0){
                     setResultValue("0徐算は出来ません。")
                 }
