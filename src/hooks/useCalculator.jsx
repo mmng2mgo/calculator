@@ -42,16 +42,16 @@ export default function useCalculator(){
 
     const calculateWithOperator = (leftHand, rightHand) => {
         switch(operator){
-            case '+':
+            case Value.PLUS:
                 setResultValue(leftHand + rightHand);
                 break;
-            case '-':
+            case Value.SUBSTRACT:
                 setResultValue(leftHand - rightHand);
                 break;
-            case '×':
+            case Value.MULTIPLY:
                 setResultValue(leftHand * rightHand);
                 break;
-            case '÷':
+            case Value.DIVISION:
                 setResultValue(leftHand / rightHand);
                 if(rightHand === 0){
                     console.log("0徐算は出来ません。")
@@ -81,13 +81,14 @@ export default function useCalculator(){
                 setLeft(left * 10 + Number(value));
                 setResultValue(left * 10 + Number(value));
             }else{
-                setRight(right * 10 + value);   
-                setResultValue(right * 10 + value);
+                setRight(right * 10 + Number(value));   
+                setResultValue(right * 10 + Number(value));
             }
         }
         else if(isOperator(lastInput)){
-            setRight(value);
-            setResultValue(right);
+            setLeft(resultValue);
+            setRight(right * 10 + Number(value));
+            setResultValue(right * 10 + Number(value));
         }
         else{
             setLeft(Number(value));
