@@ -54,7 +54,7 @@ export default function useCalculator(){
             case Value.DIVISION:
                 setResultValue(leftHand / rightHand);
                 if(rightHand === 0){
-                    console.log("0徐算は出来ません。")
+                    setResultValue("0徐算は出来ません。")
                 }
                 break;
             default:
@@ -110,11 +110,10 @@ export default function useCalculator(){
     const handleEqualButtonClick = (value) =>{
         if(isNumber(lastInput)){
             calculateWithOperator(left, right);
-            setLeft(0);
-            setRight(0);
         }
         else if(isEqual(lastInput)){
             calculateWithOperator(resultValue, right);
+            console.log(resultValue);
         }
         else if(isOperator(lastInput)){
             calculateWithOperator(left, left);
