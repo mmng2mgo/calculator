@@ -24,8 +24,8 @@ export default function useCalculator(){
 
     const isNumber = (value) => {
         return value === Value.ZERO || value === Value.ONE || value === Value.TWO || 
-            value === Value.THREE || value === Value.FOUR || value === Value.FIVE || 
-            value === Value.SEVEN || value === Value.EIGHT || value === Value.NINE
+            value === Value.THREE || value === Value.FOUR || value === Value.FIVE ||
+            value === Value.SIX || value === Value.SEVEN || value === Value.EIGHT || value === Value.NINE
     };
 
     const isOperator = (value) => {
