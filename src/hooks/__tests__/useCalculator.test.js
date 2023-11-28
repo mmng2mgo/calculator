@@ -119,4 +119,19 @@ describe('基本仕様', () => {
         act(() => result.current.handleEqualButtonClick(Value.EQUAL));
         expect(result.current.resultValue).toBe(2);
     })
+    test('計算によって9桁を超えた場合入力、計算結果表示部分にエラーメッセージが表示される', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe("計算結果が有効桁数を超えています。");
+    });
 });

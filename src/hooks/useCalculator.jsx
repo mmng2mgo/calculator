@@ -14,8 +14,8 @@ export default function useCalculator(){
 
     const isResultValueLimitOver = (value, limit) => {
         const valueString = String(value);
-        if(valueString.length > limit){
-            setErrorMessage("最大桁数を超えています")
+        if(valueString.length >= limit){
+            setResultValue("計算結果が有効桁数を超えています。");
             return true;
         }
         setErrorMessage("");
@@ -41,25 +41,37 @@ export default function useCalculator(){
     }
 
     const calculateWithOperator = (leftHand, rightHand) => {
+        let tempResult;
+
         switch(operator){
             case Value.PLUS:
-                setResultValue(leftHand + rightHand);
+                tempResult = leftHand + rightHand;
                 break;
             case Value.SUBSTRACT:
-                setResultValue(leftHand - rightHand);
+                tempResult = leftHand - rightHand;
+                // setResultValue(leftHand - rightHand);
                 break;
             case Value.MULTIPLY:
-                setResultValue(leftHand * rightHand);
+                tempResult = leftHand * rightHand;
+                // setResultValue(leftHand * rightHand);
                 break;
             case Value.DIVISION:
-                setResultValue(Math.floor(leftHand / rightHand));
+                tempResult = Math.floor(leftHand / rightHand);
                 if(rightHand === 0){
-                    setResultValue("0徐算は出来ません。")
+                    setResultValue("0徐算は出来ません。");
+                    return;
                 }
+                // setResultValue(Math.floor(leftHand / rightHand));
                 break;
             default:
-                setResultValue(leftHand);       
+               tempResult = leftHand;       
+                // setResultValue(leftHand);       
         }
+        if(isResultValueLimitOver(tempResult, resultValueLimit)){
+            return;
+        }
+
+        setResultValue(tempResult);
     }
 
     const handleOperatorButtonClick = (newOperator) => {
@@ -113,7 +125,6 @@ export default function useCalculator(){
         }
         else if(isEqual(lastInput)){
             calculateWithOperator(resultValue, right);
-            console.log(resultValue);
         }
         else if(isOperator(lastInput)){
             calculateWithOperator(left, left);
