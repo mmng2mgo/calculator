@@ -32,13 +32,91 @@ describe('基本仕様', () => {
         act(() => result.current.handleOperatorButtonClick(Value.EQUAL));
         expect(result.current.resultValue).toBe(90);
     })
-    // test('連続して二桁の足し算をする', () => {
-    //     const {result} = renderHook(() => useCalculator());
-    //     act(() => result.current.handleNumberButtonClick(1));
-    //     act(() => result.current.handleOperatorButtonClick("+"));
-    //     act(() => result.current.handleNumberButtonClick(15));
-    //     act(() => result.current.handleOperatorButtonClick("+"));
-    //     expect(result.current.resultValue).toBe(20);
-
-    // })
+    test('連続して二桁の足し算をする', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        expect(result.current.resultValue).toBe(40);
+    })
+    test('二桁の引き算をする', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.FIVE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.SUBSTRACT));
+        act(() => result.current.handleNumberButtonClick(Value.FOUR));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(10);
+    })
+    test('計算結果がマイナスになる二桁の引き算をする', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.SUBSTRACT));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(-20);
+    })
+    test('連続して足し算、引き算をする', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.SUBSTRACT));
+        act(() => result.current.handleNumberButtonClick(Value.TWO));
+        act(() => result.current.handleOperatorButtonClick(Value.SUBSTRACT));
+        expect(result.current.resultValue).toBe(38);
+    })
+    test('連続して掛け算、引き算をする', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.MULTIPLY));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleOperatorButtonClick(Value.SUBSTRACT));
+        act(() => result.current.handleNumberButtonClick(Value.TWO));
+        act(() => result.current.handleOperatorButtonClick(Value.SUBSTRACT));
+        expect(result.current.resultValue).toBe(298);
+    })
+    test('0の掛け算をする', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.SIX));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleOperatorButtonClick(Value.MULTIPLY));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(0);
+    })
+    test('0の徐算をして、エラーが表示される', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.SIX));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleOperatorButtonClick(Value.DIVISION));
+        act(() => result.current.handleNumberButtonClick(Value.ZERO));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe("0徐算は出来ません。");
+    })
+    test('=を連続して押すと、最後の入力による計算を繰り返す', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.SIX));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(12);
+    })
+    test('演算ボタンを押して数値を入力する前にイコールを押すと直前の数値で計算する', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(2);
+    })
 });
