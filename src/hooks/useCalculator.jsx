@@ -41,43 +41,43 @@ export default function useCalculator(){
     }
 
     const calculateWithOperator = (leftHand, rightHand) => {
-        let tempResult;
-
+        let calcResult = 0;
+        let error = null;
         switch(operator){
             case Value.PLUS:
-                tempResult = leftHand + rightHand;
+                calcResult = leftHand + rightHand;
                 break;
             case Value.SUBSTRACT:
-                tempResult = leftHand - rightHand;
-                // setResultValue(leftHand - rightHand);
+                calcResult = leftHand - rightHand;
                 break;
             case Value.MULTIPLY:
-                tempResult = leftHand * rightHand;
-                // setResultValue(leftHand * rightHand);
+                calcResult = leftHand * rightHand;
                 break;
             case Value.DIVISION:
-                tempResult = Math.floor(leftHand / rightHand);
                 if(rightHand === 0){
-                    setResultValue("0徐算は出来ません。");
-                    return;
+                    error = "0徐算は出来ません。";
+                }else{
+                    calcResult = Math.floor(leftHand / rightHand);
                 }
-                // setResultValue(Math.floor(leftHand / rightHand));
                 break;
             default:
-               tempResult = leftHand;       
-                // setResultValue(leftHand);       
+               calcResult = leftHand;       
         }
-        if(isResultValueLimitOver(tempResult, resultValueLimit)){
-            return;
-        }
-
-        setResultValue(tempResult);
+        return [calcResult, error];
     }
 
     const handleOperatorButtonClick = (newOperator) => {
         if(isNumber(lastInput)){
             if(operator !== null){
-                calculateWithOperator(left, right);
+                const [calcResult, error] = calculateWithOperator(left, right);
+                if(error){
+                    setResultValue(error);
+                }else{
+                    if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                        return;
+                    }
+                    setResultValue(calcResult);
+                }
                 setLeft(resultValue);
                 setRight(0);
             }
@@ -87,7 +87,6 @@ export default function useCalculator(){
     };
 
     const handleNumberButtonClick = (value) => {
-        //次は記号を入れてね
         if(isNumber(lastInput)){
             if(operator === null){
                 setLeft(left * 10 + Number(value));
@@ -121,13 +120,31 @@ export default function useCalculator(){
 
     const handleEqualButtonClick = (value) =>{
         if(isNumber(lastInput)){
-            calculateWithOperator(left, right);
+            const[calcResult, error] = calculateWithOperator(left, right);
+            if(error){
+                setResultValue(error);
+            }else{
+                if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                    return;
+                }
+                setResultValue(calcResult);
+            }
         }
         else if(isEqual(lastInput)){
-            calculateWithOperator(resultValue, right);
+            const[calcResult, error] = calculateWithOperator(resultValue, right);
+            if(error){
+                setResultValue(error);
+            }else{
+                setResultValue(calcResult);
+            }
         }
         else if(isOperator(lastInput)){
-            calculateWithOperator(left, left);
+            const[calcResult, error] = calculateWithOperator(left, left);
+            if(error){
+                setResultValue(error);
+            }else{
+                setResultValue(calcResult);
+            }
         }
         setLastInput(value)
         };   
