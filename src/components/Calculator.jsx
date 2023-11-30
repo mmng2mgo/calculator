@@ -8,7 +8,6 @@ import Value from '../consts/Value';
 export function Calculator(){
     const { 
         resultValue,
-        errorMessage, 
         handleEqualButtonClick,
         handleClearButtonClick,
         handleOperatorButtonClick,
@@ -38,9 +37,8 @@ export function Calculator(){
     };
 
     return (
-    <div className={styles.background}>
+    <div className={styles.Button}>
         <Display selectedValue={ resultValue }></Display>
-        <p>{ errorMessage }</p>
         <div>
             {BUTTONS.map((button, index) => (
                 <React.Fragment key={index}>

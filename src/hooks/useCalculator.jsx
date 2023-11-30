@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Value from '../consts/Value';
+import { isNumber, isOperator, isEqual, isClear } from '../utils/valueUtils';
 
 export default function useCalculator(){
     
@@ -10,7 +11,6 @@ export default function useCalculator(){
     //次に数値を入れてもOK
     const [operator, setOperator] = useState(null);
     const resultValueLimit = 9;
-    const [errorMessage, setErrorMessage] = useState("");
 
     const isResultValueLimitOver = (value, limit) => {
         const valueString = String(value);
@@ -18,28 +18,8 @@ export default function useCalculator(){
             setResultValue("計算結果が有効桁数を超えています。");
             return true;
         }
-        setErrorMessage("");
         return false;
     };
-
-    const isNumber = (value) => {
-        return value === Value.ZERO || value === Value.ONE || value === Value.TWO || 
-            value === Value.THREE || value === Value.FOUR || value === Value.FIVE ||
-            value === Value.SIX || value === Value.SEVEN || value === Value.EIGHT || value === Value.NINE
-    };
-
-    const isOperator = (value) => {
-        return value === Value.PLUS || value === Value.SUBSTRACT || value === Value.MULTIPLY || value === Value.DIVISION
-    };
-
-    const isEqual = (value) => {
-        return value === Value.EQUAL
-    }
-
-    const isClear = (value) => {
-        return value === Value.CLEAR
-    }
-
     const calculateWithOperator = (leftHand, rightHand) => {
         let calcResult = 0;
         let error = null;
@@ -148,7 +128,7 @@ export default function useCalculator(){
         }
         setLastInput(value)
         };   
-    return { resultValue, errorMessage, handleEqualButtonClick, handleClearButtonClick, handleOperatorButtonClick, handleNumberButtonClick }
+    return { resultValue, handleEqualButtonClick, handleClearButtonClick, handleOperatorButtonClick, handleNumberButtonClick }
 }
     
         
