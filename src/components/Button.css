@@ -1,0 +1,19 @@
+.button{
+    display: flex;
+}
+
+.number-button{
+    background-color: #EDEDED;
+}
+
+.operator-button{
+    background-color: #AFABAB;
+}
+
+.equal-button{
+    background-color: #BDD7EE;
+}
+
+.clear-button{
+    background-color: #FBE5D6;
+}
