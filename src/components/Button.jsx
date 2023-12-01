@@ -15,7 +15,7 @@ export function Button({ value, handle }){
     }
 
     return(
-        <button onClick={() => handle(value)}>
+        <button className={buttonClassName} onClick={() => handle(value)}>
             {value}
         </button>
     );

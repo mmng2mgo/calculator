@@ -2,6 +2,7 @@ import React from 'react';
 import { Display }　from './Display';
 import { Button } from './Button';
 import useCalculator from '../hooks/useCalculator';
+import './Button.css';
 import styles from './Calculator.module.css';
 import Value from '../consts/Value';
 
@@ -37,7 +38,7 @@ export function Calculator(){
     };
 
     return (
-    <div className={styles.Button}>
+    <div className={styles.calculator}>
         <Display selectedValue={ resultValue }></Display>
         <div>
             {BUTTONS.map((button, index) => (
