@@ -39,9 +39,8 @@ export function Calculator(){
 
     return (
     <div className={styles.container}>
-        <div className={styles.content}>
             <Display selectedValue={ resultValue }></Display>
-            <div className="button">
+            <div className="buttons">
                 {BUTTONS.map((button, index) => (
                     <React.Fragment key={index}>
                         <Button 
@@ -52,7 +51,6 @@ export function Calculator(){
                     </React.Fragment>
                     ))}
             </div>
-        </div>
     </div>
     );
 }

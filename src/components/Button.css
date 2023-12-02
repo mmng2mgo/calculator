@@ -1,13 +1,14 @@
-.button{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+.buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    column-gap: 10px;
+    row-gap: 10px;
+    margin-bottom: 10px;
     color: #000000;
 }
 
 .number-button{
-    width: 20%;
-    margin: 1%;
     background-color: #EDEDED;
     border: #A5A5A5;
     border-radius: 20%;
@@ -15,8 +16,6 @@
 }
 
 .operator-button{
-    width: 20%;
-    margin: 1%;
     background-color: #AFABAB;
     border: #A5A5A5;
     border-radius: 20%;
@@ -24,16 +23,12 @@
 }
 
 .equal-button{
-    width: 20%;
-    margin: 1%;
     background-color: #BDD7EE;
     border: #A5A5A5;
     border-radius: 20%;
     aspect-ratio: 1.8/1;
 }
 .clear-button{
-    width: 20%;
-    margin: 1%;
     background-color: #FBE5D6;
     border: #A5A5A5;
     border-radius: 20%;
