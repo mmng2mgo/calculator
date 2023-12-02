@@ -1,19 +1,41 @@
 .button{
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    color: #000000;
 }
 
 .number-button{
+    width: 20%;
+    margin: 1%;
     background-color: #EDEDED;
+    border: #A5A5A5;
+    border-radius: 20%;
+    aspect-ratio: 1.8/1;
 }
 
 .operator-button{
+    width: 20%;
+    margin: 1%;
     background-color: #AFABAB;
+    border: #A5A5A5;
+    border-radius: 20%;
+    aspect-ratio: 1.8/1;
 }
 
 .equal-button{
+    width: 20%;
+    margin: 1%;
     background-color: #BDD7EE;
+    border: #A5A5A5;
+    border-radius: 20%;
+    aspect-ratio: 1.8/1;
 }
-
 .clear-button{
+    width: 20%;
+    margin: 1%;
     background-color: #FBE5D6;
+    border: #A5A5A5;
+    border-radius: 20%;
+    aspect-ratio: 1.8/1;
 }

@@ -38,19 +38,20 @@ export function Calculator(){
     };
 
     return (
-    <div className={styles.calculator}>
-        <Display selectedValue={ resultValue }></Display>
-        <div>
-            {BUTTONS.map((button, index) => (
-                <React.Fragment key={index}>
-                    <Button 
-                        key={index}
-                        value={button}
-                        handle={selectFunction(button)}
-                    />
-                    {(index + 1) % 4 === 0 && <br />}
-                </React.Fragment>
-                ))}
+    <div className={styles.container}>
+        <div className={styles.content}>
+            <Display selectedValue={ resultValue }></Display>
+            <div className="button">
+                {BUTTONS.map((button, index) => (
+                    <React.Fragment key={index}>
+                        <Button 
+                            key={index}
+                            value={button}
+                            handle={selectFunction(button)}
+                        />
+                    </React.Fragment>
+                    ))}
+            </div>
         </div>
     </div>
     );
