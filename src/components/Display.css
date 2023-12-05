@@ -1,5 +1,33 @@
 .display{
     width: 100%;
-    margin: auto;
+    padding-right: 2%;
+    margin-bottom: 1%;
     border: 1px solid #000000;
+    font-weight: bolder;
+    text-align: end;
+}
+
+/* 200px以下の時 */
+@media screen and (max-width: 200px){
+    .display{
+        font-size: 100%;
+    }
+}
+/* 200px以上の時 */
+@media screen and (min-width: 200px){
+    .display{
+        font-size: 130%;
+    }
+}
+/* 250px以上の時 */
+@media screen and (min-width: 250px){
+    .display{
+        font-size: 150%;
+    }
+}
+/* 300px以上の時 */
+@media screen and (min-width: 300px){
+    .display{
+        font-size: 180%;
+    }
 }
