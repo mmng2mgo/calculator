@@ -8,29 +8,66 @@
     color: #000000;
 }
 
+
 .number-button{
     background-color: #EDEDED;
-    border: #A5A5A5;
-    border-radius: 20%;
+    border: 1px solid #A5A5A5;
+    border-radius: 10%;
     aspect-ratio: 1.8/1;
+    cursor: pointer;
+}
+
+.number-button:active{
+    opacity: 0.3;
 }
 
 .operator-button{
     background-color: #AFABAB;
-    border: #A5A5A5;
-    border-radius: 20%;
+    border: 1px solid #A5A5A5;
+    border-radius: 10%;
     aspect-ratio: 1.8/1;
+    cursor: pointer;
+}
+
+.operator-button:active{
+    opacity: 0.3;
 }
 
 .equal-button{
     background-color: #BDD7EE;
-    border: #A5A5A5;
-    border-radius: 20%;
+    border: 1px solid #A5A5A5;
+    border-radius: 10%;
     aspect-ratio: 1.8/1;
+    cursor: pointer;
 }
+
+.equal-button:active{
+    opacity: 0.3;
+}
+
 .clear-button{
     background-color: #FBE5D6;
-    border: #A5A5A5;
-    border-radius: 20%;
+    border: 1px solid #A5A5A5;
+    border-radius: 10%;
     aspect-ratio: 1.8/1;
+    cursor: pointer;
+}
+
+.clear-button:active{
+    opacity: 0.3;
+}
+
+@media screen and (min-width: 250px){
+    .number-button{
+        font-size: 150%;
+    }
+    .operator-button{
+        font-size: 150%;
+    }
+    .equal-button{
+        font-size: 150%;
+    }
+    .clear-button{
+        font-size: 150%;
+    }
 }
