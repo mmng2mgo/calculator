@@ -3,7 +3,7 @@
     padding-right: 2%;
     margin-bottom: 1%;
     border: 1px solid #000000;
-    font-weight: bolder;
+    /* font-weight: bolder; */
     text-align: end;
 }
 
@@ -28,6 +28,6 @@
 /* 300px以上の時 */
 @media screen and (min-width: 300px){
     .display{
-        font-size: 180%;
+        font-size: 170%;
     }
 }
