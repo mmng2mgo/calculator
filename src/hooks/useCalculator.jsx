@@ -15,7 +15,6 @@ export default function useCalculator(){
     const isResultValueLimitOver = (value, limit) => {
         const valueString = String(value);
         if(valueString.length >= limit){
-            setResultValue("計算結果が有効桁数を超えています。");
             return true;
         }
         return false;
@@ -27,24 +26,24 @@ export default function useCalculator(){
             case Value.PLUS:
                 calcResult = leftHand + rightHand;
                 break;
-            case Value.SUBSTRACT:
-                calcResult = leftHand - rightHand;
-                break;
-            case Value.MULTIPLY:
-                calcResult = leftHand * rightHand;
-                break;
-            case Value.DIVISION:
-                if(rightHand === 0){
-                    error = "0徐算は出来ません。";
-                }else{
-                    calcResult = Math.floor(leftHand / rightHand);
-                }
-                break;
-            default:
-               calcResult = leftHand;       
-        }
-        return [calcResult, error];
-    }
+                case Value.SUBSTRACT:
+                    calcResult = leftHand - rightHand;
+                    break;
+                    case Value.MULTIPLY:
+                        calcResult = leftHand * rightHand;
+                        break;
+                        case Value.DIVISION:
+                            if(rightHand === 0){
+                                error = "0徐算は出来ません。";
+                            }else{
+                                calcResult = Math.floor(leftHand / rightHand);
+                            }
+                            break;
+                            default:
+                                calcResult = leftHand;       
+                            }
+                            return [calcResult, error];
+                        }
 
     const handleOperatorButtonClick = (newOperator) => {
         if(isNumber(lastInput)){
@@ -54,6 +53,7 @@ export default function useCalculator(){
                     setResultValue(error);
                 }else{
                     if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                        setResultValue("計算結果が有効桁数を超えています。");
                         return;
                     }
                     setResultValue(calcResult);
@@ -67,6 +67,9 @@ export default function useCalculator(){
     };
 
     const handleNumberButtonClick = (value) => {
+        if(isResultValueLimitOver(resultValue, resultValueLimit)){
+            return 
+        };
         if(isNumber(lastInput)){
             if(operator === null){
                 setLeft(left * 10 + Number(value));
@@ -105,6 +108,7 @@ export default function useCalculator(){
                 setResultValue(error);
             }else{
                 if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                    setResultValue("計算結果が有効桁数を超えています。");
                     return;
                 }
                 setResultValue(calcResult);
