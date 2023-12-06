@@ -47,12 +47,18 @@ export default function useCalculator(){
                         }
 
     const handleOperatorButtonClick = (newOperator) => {
+        if(isResultValueLimitOver(resultValue, resultValueLimit)){
+            setResultValue("有効桁数を超えた計算はできません。");
+            setDisplayTextClass("limitOverError");
+            return 
+        };
         if(isNumber(lastInput)){
             if(operator !== null){
                 const [calcResult, error] = calculateWithOperator(left, right);
                 if(error){
                     setDisplayTextClass("zeroError");
                     setResultValue(error);
+                    return
                 }else{
                     if(isResultValueLimitOver(calcResult, resultValueLimit)){
                         setDisplayTextClass("limitOverError");
@@ -101,15 +107,22 @@ export default function useCalculator(){
             setLeft(0);
             setOperator(null);
             setLastInput(null);
+            setDisplayTextClass("");
         }
     }
 
     const handleEqualButtonClick = (value) =>{
+        if(isResultValueLimitOver(resultValue, resultValueLimit)){
+            setResultValue("有効桁数を超えた計算はできません。");
+            setDisplayTextClass("limitOverError");
+            return 
+        };
         if(isNumber(lastInput)){
             const[calcResult, error] = calculateWithOperator(left, right);
             if(error){
                 setDisplayTextClass("zeroError");
                 setResultValue(error);
+                return
             }else{
                 if(isResultValueLimitOver(calcResult, resultValueLimit)){
                     setDisplayTextClass("limitOverError");
@@ -123,15 +136,22 @@ export default function useCalculator(){
             const[calcResult, error] = calculateWithOperator(resultValue, right);
             if(error){
                 setResultValue(error);
+                return
             }else{
-                setResultValue(calcResult);
+                if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                    setDisplayTextClass("limitOverError");
+                    setResultValue("計算結果が有効桁数を超えています。");
+                    return;
+                }
             }
+            setResultValue(calcResult);
         }
         else if(isOperator(lastInput)){
             const[calcResult, error] = calculateWithOperator(left, left);
             if(error){
-                setDisplayTextClass("zeroError")
+                setDisplayTextClass("zeroError");
                 setResultValue(error);
+                return
             }else{
                 setResultValue(calcResult);
             }
