@@ -56,13 +56,13 @@
 /* 300px以上の時 */
 @media screen and (min-width: 300px){
     .zeroErrorText{
-        font-size: 150%;
+        font-size: 120%;
     }
     .limitOverErrorText{
         font-size: 100%;
     }
     .defaultText{
-        font-size: 170%;
+        font-size: 160%;
     }
 }
 
