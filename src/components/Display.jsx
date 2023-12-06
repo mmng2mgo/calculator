@@ -1,19 +1,19 @@
 import './Display.css';
 
 export function Display({ selectedValue, displayTextClass }){
-    let textColorClassName;
+    let textClassName;
     if(displayTextClass === "zeroError"){
-        textColorClassName = "zeroErrorText"
+        textClassName = "zeroErrorText"
     }
     else if(displayTextClass === "limitOverError"){
-        textColorClassName = "limitOverErrorText"
+        textClassName = "limitOverErrorText"
     }
     else if(displayTextClass === ""){
-        textColorClassName = "defaultText"
+        textClassName = "defaultText"
     }
     return(
         <div className={"display"}>
-            <div className={textColorClassName}>
+            <div className={textClassName}>
                 {selectedValue}
             </div>
         </div>
