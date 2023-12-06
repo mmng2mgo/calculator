@@ -9,12 +9,13 @@ import Value from '../consts/Value';
 export function Calculator(){
     const { 
         resultValue,
+        displayTextClass,
         handleEqualButtonClick,
         handleClearButtonClick,
         handleOperatorButtonClick,
         handleNumberButtonClick
     } = useCalculator();
-    
+
     const BUTTONS = [
         Value.SEVEN, Value.EIGHT, Value.NINE, Value.DIVISION,
         Value.FOUR, Value.FIVE, Value.SIX, Value.MULTIPLY,
@@ -39,7 +40,7 @@ export function Calculator(){
 
     return (
     <div className={styles.container}>
-            <Display selectedValue={ resultValue }></Display>
+            <Display selectedValue={ resultValue } displayTextClass={ displayTextClass }></Display>
             <div className="buttons">
                 {BUTTONS.map((button, index) => (
                     <React.Fragment key={index}>

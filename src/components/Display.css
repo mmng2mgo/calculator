@@ -7,27 +7,67 @@
     text-align: end;
 }
 
+.zeroErrorText{
+    color: red;
+}
+.limitOverErrorText{
+    color: red;
+    font-size: 20%;
+}
+.defaultText{
+    color: black;
+}
 /* 200px以下の時 */
-@media screen and (max-width: 200px){
-    .display{
+@media screen and (max-width: 220px){
+    .zeroErrorText{
+        font-size: 70%;
+    }
+    .limitOverErrorText{
+        font-size: 50%;
+    }
+    .defaultText{
         font-size: 100%;
     }
 }
 /* 200px以上の時 */
-@media screen and (min-width: 200px){
-    .display{
+@media screen and (min-width: 220px){
+    .zeroErrorText{
+        font-size: 100%;
+    }
+    .limitOverErrorText{
+        font-size: 70%;
+    }
+    .defaultText{
         font-size: 130%;
     }
 }
 /* 250px以上の時 */
 @media screen and (min-width: 250px){
-    .display{
+    .zeroErrorText{
+        font-size: 130%;
+    }
+    .limitOverErrorText{
+        font-size: 80%;
+    }
+    .defaultText{
         font-size: 150%;
     }
 }
 /* 300px以上の時 */
 @media screen and (min-width: 300px){
-    .display{
+    .zeroErrorText{
+        font-size: 150%;
+    }
+    .limitOverErrorText{
+        font-size: 100%;
+    }
+    .defaultText{
         font-size: 170%;
+    }
+}
+
+@media screen and (min-width: 370px){
+    .limitOverErrorText{
+        font-size: 120%;
     }
 }

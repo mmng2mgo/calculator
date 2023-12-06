@@ -11,6 +11,7 @@ export default function useCalculator(){
     //次に数値を入れてもOK
     const [operator, setOperator] = useState(null);
     const resultValueLimit = 9;
+    const [displayTextClass, setDisplayTextClass] = useState("");
 
     const isResultValueLimitOver = (value, limit) => {
         const valueString = String(value);
@@ -50,9 +51,11 @@ export default function useCalculator(){
             if(operator !== null){
                 const [calcResult, error] = calculateWithOperator(left, right);
                 if(error){
+                    setDisplayTextClass("zeroError");
                     setResultValue(error);
                 }else{
                     if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                        setDisplayTextClass("limitOverError");
                         setResultValue("計算結果が有効桁数を超えています。");
                         return;
                     }
@@ -105,9 +108,11 @@ export default function useCalculator(){
         if(isNumber(lastInput)){
             const[calcResult, error] = calculateWithOperator(left, right);
             if(error){
+                setDisplayTextClass("zeroError");
                 setResultValue(error);
             }else{
                 if(isResultValueLimitOver(calcResult, resultValueLimit)){
+                    setDisplayTextClass("limitOverError");
                     setResultValue("計算結果が有効桁数を超えています。");
                     return;
                 }
@@ -125,6 +130,7 @@ export default function useCalculator(){
         else if(isOperator(lastInput)){
             const[calcResult, error] = calculateWithOperator(left, left);
             if(error){
+                setDisplayTextClass("zeroError")
                 setResultValue(error);
             }else{
                 setResultValue(calcResult);
@@ -132,7 +138,7 @@ export default function useCalculator(){
         }
         setLastInput(value)
         };   
-    return { resultValue, handleEqualButtonClick, handleClearButtonClick, handleOperatorButtonClick, handleNumberButtonClick }
+    return { resultValue,displayTextClass, handleEqualButtonClick, handleClearButtonClick, handleOperatorButtonClick, handleNumberButtonClick }
 }
     
         
