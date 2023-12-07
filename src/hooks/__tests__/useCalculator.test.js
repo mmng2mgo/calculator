@@ -134,4 +134,40 @@ describe('基本仕様', () => {
         act(() => result.current.handleEqualButtonClick(Value.EQUAL));
         expect(result.current.resultValue).toBe("計算結果が有効桁数を超えています。");
     });
+    test('イコールボタンを２回押下後、有効桁数を超えた場合、計算結果表示部分にエラーメッセージが表示される', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleNumberButtonClick(Value.EIGHT));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.ONE));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe("計算結果が有効桁数を超えています。");
+    });
+    test('イコールボタンを押し結果表示後、再度オペレータボタンを押し、表示された結果と新たに入力した値同士で計算をする。', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleNumberButtonClick(Value.THREE));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(9);
+    });
+    test('オペレーターボタンが２回押されたときに、直前のオペレーターが適用される', () => {
+        const {result} = renderHook(() => useCalculator());
+        act(() => result.current.handleNumberButtonClick(Value.NINE));
+        act(() => result.current.handleOperatorButtonClick(Value.PLUS));
+        act(() => result.current.handleOperatorButtonClick(Value.MULTIPLY));
+        act(() => result.current.handleNumberButtonClick(Value.FOUR));
+        act(() => result.current.handleEqualButtonClick(Value.EQUAL));
+        expect(result.current.resultValue).toBe(36);
+    })
 });
