@@ -5,14 +5,14 @@
     column-gap: 10px;
     row-gap: 10px;
     margin-bottom: 10px;
-    color: #000000;
 }
 
 
 .number-button{
-    background-color: #EDEDED;
-    border: 1px solid #A5A5A5;
-    border-radius: 10%;
+    color: white;
+    background-color: gray;
+    border: 1px solid gray;
+    border-radius: 50%;
     aspect-ratio: 1.8/1;
     cursor: pointer;
 }
@@ -22,9 +22,10 @@
 }
 
 .operator-button{
-    background-color: #AFABAB;
-    border: 1px solid #A5A5A5;
-    border-radius: 10%;
+    color: white;
+    background-color: #f7ad0e;
+    border: 1px solid #f7ad0e;
+    border-radius: 50%;
     aspect-ratio: 1.8/1;
     cursor: pointer;
 }
@@ -34,9 +35,10 @@
 }
 
 .equal-button{
-    background-color: #BDD7EE;
-    border: 1px solid #A5A5A5;
-    border-radius: 10%;
+    color: white;
+    background-color: #f7ad0e;
+    border: 1px solid #f7ad0e;
+    border-radius: 50%;
     aspect-ratio: 1.8/1;
     cursor: pointer;
 }
@@ -46,9 +48,10 @@
 }
 
 .clear-button{
-    background-color: #FBE5D6;
-    border: 1px solid #A5A5A5;
-    border-radius: 10%;
+    color: white;
+    background-color: #d8d2d2;
+    border: 1px solid #AFABAB;
+    border-radius: 50%;
     aspect-ratio: 1.8/1;
     cursor: pointer;
 }
