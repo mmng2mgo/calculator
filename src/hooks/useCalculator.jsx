@@ -8,7 +8,6 @@ export default function useCalculator(){
     const [right, setRight] = useState(0);
     const [left, setLeft] = useState(0);
     const [lastInput, setLastInput] = useState(null);
-    //次に数値を入れてもOK
     const [operator, setOperator] = useState(null);
     const resultValueLimit = 9;
     const [displayTextClass, setDisplayTextClass] = useState("");
@@ -27,24 +26,24 @@ export default function useCalculator(){
             case Value.PLUS:
                 calcResult = leftHand + rightHand;
                 break;
-                case Value.SUBSTRACT:
-                    calcResult = leftHand - rightHand;
-                    break;
-                    case Value.MULTIPLY:
-                        calcResult = leftHand * rightHand;
-                        break;
-                        case Value.DIVISION:
-                            if(rightHand === 0){
-                                error = "0徐算は出来ません。";
-                            }else{
-                                calcResult = Math.floor(leftHand / rightHand);
-                            }
-                            break;
-                            default:
-                                calcResult = leftHand;       
-                            }
-                            return [calcResult, error];
-                        }
+            case Value.SUBSTRACT:
+                calcResult = leftHand - rightHand;
+                break;
+            case Value.MULTIPLY:
+                calcResult = leftHand * rightHand;
+                break;
+            case Value.DIVISION:
+                if(rightHand === 0){
+                    error = "0徐算は出来ません。";
+                }else{
+                    calcResult = Math.floor(leftHand / rightHand);
+                }
+                break;
+            default:
+                calcResult = leftHand;       
+            }
+            return [calcResult, error];
+        }
 
     const handleOperatorButtonClick = (newOperator) => {
         if(isResultValueLimitOver(resultValue, resultValueLimit)){
@@ -72,6 +71,14 @@ export default function useCalculator(){
             }
             setOperator(newOperator);
             setLastInput(newOperator);
+        }else if(isOperator(lastInput)){
+            setOperator(newOperator);
+            setLastInput(newOperator);
+        }else if(isEqual(lastInput)){
+            setLeft(resultValue);
+            setRight(0);
+            setOperator(newOperator);
+            setLastInput(newOperator);
         }
     };
 
@@ -87,13 +94,11 @@ export default function useCalculator(){
                 setRight(right * 10 + Number(value));   
                 setResultValue(right * 10 + Number(value));
             }
-        }
-        else if(isOperator(lastInput)){
+        }else if(isOperator(lastInput)){
             setLeft(resultValue);
             setRight(right * 10 + Number(value));
             setResultValue(right * 10 + Number(value));
-        }
-        else{
+        }else{
             setLeft(Number(value));
             setResultValue(Number(value));
         }
